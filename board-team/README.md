@@ -4,14 +4,14 @@ Those are the agreements we have for the projects within the board team. Feel fr
 
 # Endpoints and HTTP verbs
 
-We believe that the endpoints shoulbe be vebose. We also believe we strongly recommend to use the http verbs.
+We believe that the endpoints should be vebose. We also enforce the use of the correct http verbs.
 
 ### GET
 Should be used to retrieve a list of objects or an specific object.
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/" or "<product>/<entity_pk>/<resource>/<resource_pk>/"
-- eg: "board/7/meetings/" or "board/7/meerings/8/" if retrieving an specific object
+- eg: "board/7/meetings/" or "board/7/meetings/8/" if retrieving an specific object
 ```
 
 ### POST
@@ -19,7 +19,7 @@ Should be used to create a new object or execute a specific action
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/" or "<product>/<entity_pk>/<resource>/<action>"
-- eg: "board/7/meetings/" or "board/7/meerings/invite-attendees/"
+- eg: "board/7/meetings/" or "board/7/meetings/invite-attendees/"
 ```
 
 ### PUT
@@ -27,7 +27,7 @@ Used to update a particular object from a resource
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/<resource_pk>/"
-- eg: "board/7/meerings/8/"
+- eg: "board/7/meetings/8/"
 ```
 
 ### PATCH
@@ -35,7 +35,7 @@ Used to partially update a particular object from a resource
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/<resource_pk>/"
-- eg: "board/7/meerings/8/"
+- eg: "board/7/meetings/8/"
 ```
 
 ### DELETE
@@ -43,22 +43,22 @@ Used to destroy, even if virtually, an object from a resource
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/<resource_pk>/"
-- eg: "board/7/meerings/8/"
+- eg: "board/7/meetings/8/"
 ```
 
 
 # Permissions
 
-In board the permission control is more granular than the rest of the app. There are 4 level of permissions:
+In board, the permission control is more granular than the rest of the app. There are 4 levelS of permissions:
 
 * Corporation: Usually defined by the relationship of the user with the corporation. This permission set is declared at the endpoint
 * Resource: Defined at the role level such as Company Admin, Board Admin, Board Member, and Meeting Attendee.
 * Object: Some times only specific type of users can have access to objects. This is defined directly in the object level by selecting explicity the users with access to it.
-* Action: There are some actions such as Sign Board Approvals that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also rave access to the board aproval to see it.
+* Action: There are some actions such as Sign Board Approvals that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also have access to see the board approval.
 
 ### Permission names
 
-We also believe that permissions should be verbose and easy to reuse without confusion. That's why we use constanst to combine the roles and assign them to our endpoints.
+We also believe that permissions should be verbose and easy to reuse without confusion. That's why we use constants to combine the roles and assign them to our endpoints.
 
 ```py
 # bad
@@ -84,7 +84,7 @@ CanViewBoardMeeting = Any(
 
 # Get rid of dead code
 
-Unless it is a model without proper migration, all code that are not being used should be killed. It also includes code in the frontend and libaries.
+Unless it is a model without proper migrations, all code that is not being used should be killed. It also includes code in the frontend and libraries.
 
 
 # Security
@@ -92,7 +92,7 @@ Unless it is a model without proper migration, all code that are not being used 
 
 ### Filters
 
-Besides of the safty precautions we already need to have during our developing time, we always filter our queries in our endpoints by the `corporation_pk` and `resource_pk`. Depending on the resource, we also include the `user_pk` on the filter. It avoids us to exposing protected data from bad intentioned users.
+Apart from the safety precautions we already need to have during our development time, we always filter our queries in our endpoints by the `corporation_pk` and `resource_pk`. Depending on the resource, we also include the `user_pk` on the filter. It avoids us to exposing protected data from bad intentioned users.
 
 ```py
 # bad
@@ -103,7 +103,7 @@ BoardMeeting.objects.get(
 # good
 BoardMeeting.objects.get(
     pk=kwargs['boardmeeting_pk'],
-    corporation_id=kwargs['boardmeeting_pk']
+    corporation_id=kwargs['corporation_pk']
 )
 ```
 
@@ -156,7 +156,7 @@ class MeetingHost:
         ...
 ```
 
-Yes, you might ended up writing more code, but better and clear code though. Also it becomes easier to test and add behaviors.
+Yes, you might end up writing more code, but better and clearer code. Also it becomes easier to test and add behaviors.
 
 
 # Model names
@@ -179,7 +179,7 @@ It makes easier to read not just in the application level but also in the databa
 
 We aim 90% of test coverage, which means that we test most of the functions and classes we have. Keeping that in mind, we write code that is easy to test using the SRP concept not just for classes but also for functions and methods.
 
-We also test different functions of the same resource separately. Take a look at the code bellow.
+We also test different functions of the same resource separately. Take a look at the code below.
 
 ```py
 
@@ -253,7 +253,7 @@ board
 
 ### Frontend
 
-In the frontend our structure is a bit different. We have the structure based on the domain and then we break it down into components, containers, and helpers. It helps us to find components of the application faster.
+In the frontend our structure is a bit different. We have the structure based on the domain and then we break it down into components, containers, and helpers. It helps us find components of the application faster.
 ```
 board
   |—— base
