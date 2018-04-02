@@ -51,10 +51,10 @@ Used to destroy, even if virtually, an object from a resource
 
 In board the permission control is more granular than the rest of the app. There are 4 level of permissions:
 
-1 - Corporation: Usually defined by the relationship of the user with the corporation. This permission set is declared at the endpoint
-2 - Resource: Defined at the role level such as Company Admin, Board Admin, Board Member, and Meeting Attendee.
-3 - Object: Some times only specific type of users can have access to objects. This is defined directly in the object level by selecting explicity the users with access to it.
-4 - Action: There are some actions such as Sign Board Approvals that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also rave access to the board aproval to see it.
+* Corporation: Usually defined by the relationship of the user with the corporation. This permission set is declared at the endpoint
+* Resource: Defined at the role level such as Company Admin, Board Admin, Board Member, and Meeting Attendee.
+* Object: Some times only specific type of users can have access to objects. This is defined directly in the object level by selecting explicity the users with access to it.
+* Action: There are some actions such as Sign Board Approvals that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also rave access to the board aproval to see it.
 
 ### Permission names
 
