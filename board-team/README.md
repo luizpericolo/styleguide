@@ -7,7 +7,7 @@ Those are the agreements we have for the projects within the board team. Feel fr
 We believe that the endpoints should be vebose. We also enforce the use of the correct http verbs.
 
 ### GET
-Should be used to retrieve a list of objects or an specific object.
+Should be used to retrieve a list of objects or a specific object.
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/" or "<product>/<entity_pk>/<resource>/<resource_pk>/"
@@ -49,12 +49,12 @@ Used to destroy, even if virtually, an object from a resource
 
 # Permissions
 
-In board, the permission control is more granular than the rest of the app. There are 4 levelS of permissions:
+In board, the permission control is more granular than the rest of the app. There are 4 levels of permissions:
 
 * Corporation: Usually defined by the relationship of the user with the corporation. This permission set is declared at the endpoint
 * Resource: Defined at the role level such as Company Admin, Board Admin, Board Member, and Meeting Attendee.
-* Object: Some times only specific type of users can have access to objects. This is defined directly in the object level by selecting explicity the users with access to it.
-* Action: There are some actions such as Sign Board Approvals that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also have access to see the board approval.
+* Object: Sometimes only a specific type of user can have access to objects. This is defined directly in the object level by selecting explicity the users with access to it.
+* Action: There are some actions such as `Sign Board Approvals` that require the user to not just have access to the resource and object, but also access to a specific action. In this case, only board members can sign board approval, but the Board Admin can also have access to see the board approval.
 
 ### Permission names
 
@@ -92,7 +92,7 @@ Unless it is a model without proper migrations, all code that is not being used 
 
 ### Filters
 
-Apart from the safety precautions we already need to have during our development time, we always filter our queries in our endpoints by the `corporation_pk` and `resource_pk`. Depending on the resource, we also include the `user_pk` on the filter. It avoids us to exposing protected data from bad intentioned users.
+Apart from the safety precautions we already need to have during our development time, we always filter our queries in our endpoints by the `corporation_pk` and `resource_pk`. Depending on the resource, we also include the `user_pk` on the filter. It prevents us from exposing protected data to bad intentioned users.
 
 ```py
 # bad
@@ -109,7 +109,7 @@ BoardMeeting.objects.get(
 
 ### Viewset
 
-An interesting approach to consider is to set the queryset of the DRF (Django Rest Framework) view as none and then implement the `get_queryset` method. It requires that the engineers always implement the `get_queryset` method, making sure that it will never expose to much data.
+An interesting approach to consider is to set the queryset of the DRF (Django Rest Framework) view as none and then implement the `get_queryset` method. It requires that the engineers always implement the `get_queryset` method, making sure that it will never expose too much data.
 
 ```py
 # proposal
@@ -125,7 +125,7 @@ class BoardMeetingViewSet(mixins.ListModelMixin):
 
 # Single responsibility principle
 
-We strongly believe on SRP. That means that we avoid to have fat models, specially when the models are doing way more than being simple models. That also means that we don't stick all the business logic on the models. We use serializers for validations, models for data integrity and retrieve data, and other classes to do the rest.
+We strongly believe on SRP. That means that we should avoid having fat models, specially when the models are doing way more than being simple models. That also means that we don't stick all the business logic on the models. We use serializers for validations, models for data integrity and retrieval and other classes to do the rest.
 
 ```py
 # it works
@@ -161,7 +161,7 @@ Yes, you might end up writing more code, but better and clearer code. Also it be
 
 # Model names
 
-We prefer to use the model name and that's it. We have some legacy models that are not using this pattern and have the app name up front like `BoardMeeting`. Just meeting would be better. But that's fine for legacy.
+We prefer to use the model name and that's it. We have some legacy models that are not using this pattern and have the app name up front like `BoardMeeting`. Having `Meeting` as a prefix would be better, but that's fine for legacy.
 
 ```py
 # bad
@@ -173,11 +173,11 @@ class MeetingAttendee:
     ...
 ```
 
-It makes easier to read not just in the application level but also in the database level. The code above will produce the tables `board_boardmeetingattendee` and `board_meetingattendee`. The second one seems to be closer to a real sentence.
+It makes it easier to read not just in the application level but also in the database level. The code above will produce the tables `board_boardmeetingattendee` and `board_meetingattendee`. The second one seems to be closer to a real sentence.
 
 # Tests
 
-We aim 90% of test coverage, which means that we test most of the functions and classes we have. Keeping that in mind, we write code that is easy to test using the SRP concept not just for classes but also for functions and methods.
+We aim at 90% of test coverage, which means that we test most of the functions and classes we have. Keeping that in mind, we write code that is easy to test using the SRP concept not just for classes but also for functions and methods.
 
 We also test different functions of the same resource separately. Take a look at the code below.
 
@@ -195,14 +195,16 @@ class BoardMeetingViewSet:
 
 ```
 
-In this code we would test the permission access in on test set, the publish method in another test set, and the send_invitations method in a different test set.
+In this code we would test the permission access in one test set, the `publish` method in another test set, and the `send_invitations` method in a different test set.
 
-Integration tests are welcome but only for specific use cases. The ideal would be to have an integration test for a real case such as: John is the board admin for Meetly and needs to create a board meeting to invite the board members, Sarah, Rachael, and Zach.
+More information about how to write unit tests can be found [here](#acknowledgments)
+
+Integration tests are welcome but only for specific use cases. We should ideally have an integration test for a real case such as: John is the board admin for Meetly and needs to create a board meeting to invite the board members, Sarah, Rachael, and Zach.
 
 
 # Data Migrations
 
-We always consider data migrations in our sprints. Everything that touches the models has to check if data migrations are needed, it that's the case we write them as a proper migration. This is better to track all updates we make in our data base through scripts.
+We always consider data migrations in our sprints. We should always assess if any change in any model requires a data migration or not. If it is required, we write a proper migration for it. This is better than tracking all updates we make in our data base through scripts.
 
 ```py
 def archive_all_meetings(apps, schema_editor):
@@ -225,7 +227,7 @@ class Migration(migrations.Migration):
 
 ### Backend
 
-We separate our models and views based on the domains of the product. Bellow you can see what an ideal structure would look like
+We separate our models and views based on the domains of the product. Below you can see what an ideal structure would look like
 
 ```
 board
@@ -302,7 +304,7 @@ const DeleteMinutesModal;
 const MinutesDeleteModal;
 ```
 
-For codestyle we fallow most of this
+For codestyle we follow most of this
 
 https://github.com/carta/carta-web/pull/23504
 
