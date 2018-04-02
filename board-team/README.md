@@ -7,7 +7,7 @@ Those are the agreements we have for the projects within the board team. Feel fr
 We believe that the endpoints should be vebose. We also enforce the use of the correct http verbs.
 
 ### GET
-Should be used to retrieve a list of objects or a specific object.
+Should be used to retrieve a list of objects or a specific object
 
 ```
 - endpoint pattern: "<product>/<entity_pk>/<resource>/" or "<product>/<entity_pk>/<resource>/<resource_pk>/"
@@ -204,7 +204,7 @@ Integration tests are welcome but only for specific use cases. We should ideally
 
 # Data Migrations
 
-We always consider data migrations in our sprints. We should always assess if any change in any model requires a data migration or not. If it is required, we write a proper migration for it. This is better than tracking all updates we make in our data base through scripts.
+We always consider data migrations in our sprints. We should always assess if any change in any model requires a data migration or not. If it is required, we write a proper migration for it. This is better than tracking all updates we make in our database through scripts.
 
 ```py
 def archive_all_meetings(apps, schema_editor):
