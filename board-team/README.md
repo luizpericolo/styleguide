@@ -125,7 +125,7 @@ class BoardMeetingViewSet(mixins.ListModelMixin):
 
 # Single responsibility principle
 
-We strongly believe on SRP. That means that we avoid to have fat models, specially when the methods are doing way more than being simple models. That also means that we don't put all the business logic at the models. We use serializers for validations, models for data integrity and retrieve data, and other classes to do the rest.
+We strongly believe on SRP. That means that we avoid to have fat models, specially when the models are doing way more than being simple models. That also means that we don't stick all the business logic on the models. We use serializers for validations, models for data integrity and retrieve data, and other classes to do the rest.
 
 ```py
 # it works
@@ -156,7 +156,7 @@ class MeetingHost:
         ...
 ```
 
-Yes, you might ended up writing more code, but better and clear code though. Also the it becomes easier to test and add behaviors.
+Yes, you might ended up writing more code, but better and clear code though. Also it becomes easier to test and add behaviors.
 
 
 # Model names
@@ -173,11 +173,11 @@ class MeetingAttendee:
     ...
 ```
 
-It makes easier to read not just in the application level but in the database level. The code above will produce the tables `board_boardmeetingattendee` and `board_meetingattendee`. The second one seems to be closer to a real sentence.
+It makes easier to read not just in the application level but also in the database level. The code above will produce the tables `board_boardmeetingattendee` and `board_meetingattendee`. The second one seems to be closer to a real sentence.
 
 # Tests
 
-We aim 90% of test coverage, which means that we test most of the functions and classes we have. Keeping that in mind, we write test that is easy to test and because of that we use SRP not just for classes but also for functions and methods.
+We aim 90% of test coverage, which means that we test most of the functions and classes we have. Keeping that in mind, we write code that is easy to test using the SRP concept not just for classes but also for functions and methods.
 
 We also test different functions of the same resource separately. Take a look at the code bellow.
 
@@ -197,12 +197,12 @@ class BoardMeetingViewSet:
 
 In this code we would test the permission access in on test set, the publish method in another test set, and the send_invitations method in a different test set.
 
-Integration tests are welcome but only for specific use cases. The ideal would be to have an integration test for a real case.
+Integration tests are welcome but only for specific use cases. The ideal would be to have an integration test for a real case such as: John is the board admin for Meetly and needs to create a board meeting to invite the board members, Sarah, Rachael, and Zach.
 
 
 # Data Migrations
 
-We always consider data migrations in our sprints. Everything that touches the models has to check if data migrations are needed, it that's the case we write them as a proper migration. this is good to track all updates we make in our data base through scripts.
+We always consider data migrations in our sprints. Everything that touches the models has to check if data migrations are needed, it that's the case we write them as a proper migration. This is better to track all updates we make in our data base through scripts.
 
 ```py
 def archive_all_meetings(apps, schema_editor):
@@ -253,7 +253,7 @@ board
 
 ### Frontend
 
-In the front end our structure is a bit different. We having the structure based on the domain and then we break it down into components, containers, and helpers. It helps us to find components of the application faster.
+In the frontend our structure is a bit different. We have the structure based on the domain and then we break it down into components, containers, and helpers. It helps us to find components of the application faster.
 ```
 board
   |—— base
